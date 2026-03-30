@@ -1,0 +1,19 @@
+body {
+  font-family: Arial;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.slot {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #333;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: lightgreen;
+}
