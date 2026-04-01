@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   font-family: Arial;
   text-align: center;
@@ -16,4 +20,9 @@ body {
 
 .selected {
   background-color: lightgreen;
+}
+
+/* Tailwind-powered button */
+.btn {
+  @apply bg-sky-500 hover:bg-sky-700 text-white px-4 py-2 rounded;
 }

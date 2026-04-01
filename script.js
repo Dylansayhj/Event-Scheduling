@@ -11,8 +11,12 @@ window.history.replaceState({}, '', `?event=${eventId}`);
 
 function goToCalendar() {
   document.getElementById('home').classList.add('hidden');
-  document.getElementById('calendar').classList.remove('hidden');
+
+  const pickingTime = document.getElementById('picking-time');
+  pickingTime.classList.remove('hidden');
+  pickingTime.classList.add('flex'); // makes the grid container visible
 }
+
 
 flatpickr("#datePicker", {
   onChange: function(selectedDates, dateStr) {
