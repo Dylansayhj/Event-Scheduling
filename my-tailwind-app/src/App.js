@@ -7,7 +7,6 @@ function App() {
     <Router>
       <Navbar
         links={[
-          { label: "How it works", href: "#how-it-works" },
           { label: "Events", href: "/events" },
         ]}
         ctaLabel="+ New Event"
