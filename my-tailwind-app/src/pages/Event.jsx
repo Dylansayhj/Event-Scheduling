@@ -1,6 +1,7 @@
 import { useLocation, useParams } from "react-router-dom";
 import { useState } from "react";
-
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
+import { SiTiktok } from "react-icons/si";
 export default function Event() {
   const { eventId } = useParams();
   const location = useLocation();
@@ -41,13 +42,56 @@ export default function Event() {
           Share this event
         </h3>
 
-        <div className="flex items-center gap-4 mb-6">
-          <button className="text-[#1877f2] text-2xl"></button>
-          <button className="text-[#1da1f2] text-2xl"></button>
-          <button className="text-[#e1306c] text-2xl"></button>
-          <button className="text-[#25d366] text-2xl"></button>
-          <button className="text-[#0a66c2] text-2xl"></button>
-        </div>
+         <div className="flex items-center gap-4 mb-6 text-2xl">
+
+            <a
+                href={`https://www.facebook.com/sharer/sharer.php?u=${shareLink}`}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <FaFacebook className="text-[#1877f2] hover:scale-110 transition" />
+            </a>
+
+            <a
+                href={`https://twitter.com/intent/tweet?url=${shareLink}`}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <FaTwitter className="text-[#1da1f2] hover:scale-110 transition" />
+            </a>
+
+            <a
+                href={`https://wa.me/?text=${shareLink}`}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <FaWhatsapp className="text-[#25d366] hover:scale-110 transition" />
+            </a>
+
+            <a
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareLink}`}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <FaLinkedin className="text-[#0a66c2] hover:scale-110 transition" />
+            </a>
+
+            {/* Instagram & TikTok (copy fallback) */}
+            <button
+                onClick={handleCopy}
+                className="text-[#e1306c] hover:scale-110 transition"
+            >
+                <FaInstagram />
+            </button>
+
+            <button
+                onClick={handleCopy}
+                className="text-black hover:scale-110 transition"
+            >
+                <SiTiktok />
+            </button>
+
+            </div>
 
         {/* Copy Link */}
         <div className="bg-[#f7f3ee] border border-[#e8dfd3] rounded-xl p-4 mb-4">
