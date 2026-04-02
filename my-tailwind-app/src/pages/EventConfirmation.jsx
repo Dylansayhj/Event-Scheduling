@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { SiTiktok } from "react-icons/si";
@@ -7,6 +7,7 @@ import ShareLink from "../components/ShareLink";
 export default function EventConfirmation() {
   const { eventId } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
   const { name, description } = location.state || {};
 
   const shareLink = `${window.location.origin}/event/${eventId}`;
@@ -16,6 +17,10 @@ export default function EventConfirmation() {
     navigator.clipboard.writeText(shareLink);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
+  };
+
+  const handleAddAnother = () => {
+    navigate(`/event/${eventId}`, { state: { name, description } });
   };
 
   return (
@@ -64,8 +69,14 @@ export default function EventConfirmation() {
           </button>
         </div>
 
-        {/* Share link — reusable component replaces the old div + button */}
         <ShareLink eventId={eventId} label="Event Link" />
+
+        <button
+          onClick={handleAddAnother}
+          className="w-full mt-4 border border-[#2d4a3e] text-[#2d4a3e] hover:bg-[#2d4a3e] hover:text-white font-semibold text-sm py-3 rounded-xl transition-all duration-200"
+        >
+          + Add Availability for Another Date
+        </button>
 
       </div>
     </div>

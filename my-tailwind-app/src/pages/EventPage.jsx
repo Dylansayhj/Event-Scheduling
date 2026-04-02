@@ -40,13 +40,11 @@ export default function EventPage() {
   const eventName = state?.name || "Group Event";
   const eventDescription = state?.description || "";
 
-  // 1. Calendar state
   const today = new Date();
   const [calYear, setCalYear] = useState(today.getFullYear());
   const [calMonth, setCalMonth] = useState(today.getMonth());
   const [selectedDate, setSelectedDate] = useState(null);
 
-  // 2. User & event data state
   const [selectedSlots, setSelectedSlots] = useState([]);
   const [overlaps, setOverlaps] = useState({});
   const [confirmed, setConfirmed] = useState(getConfirmed(eventId));
@@ -56,7 +54,6 @@ export default function EventPage() {
 
   const totalUsers = allNames.length;
 
-  // 3. Update overlaps when a new date is selected
   useEffect(() => {
     if (selectedDate) {
       setOverlaps(getOverlaps(eventId, selectedDate));
@@ -64,7 +61,6 @@ export default function EventPage() {
     }
   }, [selectedDate, eventId]);
 
-  // 4. Called by TimeSlotPanel after a save — refreshes data then navigates to confirmation
   const handleSave = (name) => {
     setAllNames(Object.keys(getEventData(eventId)));
     setDatesWithResponses(getDatesWithResponses(eventId));

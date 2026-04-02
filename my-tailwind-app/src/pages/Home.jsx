@@ -30,7 +30,6 @@ export default function Home() {
 
     const eventId = Math.random().toString(36).slice(2, 8);
 
-    // Go to the event page first — confirmation comes after saving availability
     navigate(`/event/${eventId}`, { state: { ...form, eventId } });
   };
 
