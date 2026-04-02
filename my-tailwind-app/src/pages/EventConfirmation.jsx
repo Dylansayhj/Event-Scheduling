@@ -2,6 +2,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { useState } from "react";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { SiTiktok } from "react-icons/si";
+import ShareLink from "../components/ShareLink";
 
 export default function EventConfirmation() {
   const { eventId } = useParams();
@@ -19,18 +20,19 @@ export default function EventConfirmation() {
 
   return (
     <div className="min-h-screen bg-[#f7f3ee] flex flex-col items-center justify-start px-4 py-16">
-         {/* Heading */}
-        <div className="text-center mb-10">
-            <h1 className="font-serif text-4xl md:text-5xl font-black text-[#1a1a18] tracking-tight leading-tight mb-3">
-             Your <span className="italic text-[#2d4a3e]">Availability</span> 
-              <br />
-             is confirmed!
-            </h1>
-        </div>
+
+      {/* Heading */}
+      <div className="text-center mb-10">
+        <h1 className="font-serif text-4xl md:text-5xl font-black text-[#1a1a18] tracking-tight leading-tight mb-3">
+          Your <span className="italic text-[#2d4a3e]">Availability</span>
+          <br />
+          is confirmed!
+        </h1>
+      </div>
 
       <div className="w-full max-w-md bg-white rounded-2xl border border-[#e8dfd3] shadow-[0_4px_24px_rgba(45,74,62,0.08)] p-8">
-        
-        {/* Title */}
+
+        {/* Event info */}
         <h2 className="text-2xl font-bold text-[#1a1a18] mb-1">
           {name || "Your Event"}
         </h2>
@@ -38,74 +40,33 @@ export default function EventConfirmation() {
           {description || "No description provided."}
         </p>
 
-        {/* Share Section */}
-        <h3 className="text-lg font-semibold text-[#2d4a3e] mb-3">
-          Share this event
-        </h3>
+        {/* Share section */}
+        <h3 className="text-lg font-semibold text-[#2d4a3e] mb-3">Share this event</h3>
 
-         <div className="flex items-center gap-4 mb-6 text-2xl">
-
-            <a
-                href={`https://www.facebook.com/sharer/sharer.php?u=${shareLink}`}
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <FaFacebook className="text-[#1877f2] hover:scale-110 transition" />
-            </a>
-
-            <a
-                href={`https://twitter.com/intent/tweet?url=${shareLink}`}
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <FaTwitter className="text-[#1da1f2] hover:scale-110 transition" />
-            </a>
-
-            <a
-                href={`https://wa.me/?text=${shareLink}`}
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <FaWhatsapp className="text-[#25d366] hover:scale-110 transition" />
-            </a>
-
-            <a
-                href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareLink}`}
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <FaLinkedin className="text-[#0a66c2] hover:scale-110 transition" />
-            </a>
-
-            {/* Instagram & TikTok (copy fallback) */}
-            <button
-                onClick={handleCopy}
-                className="text-[#e1306c] hover:scale-110 transition"
-            >
-                <FaInstagram />
-            </button>
-
-            <button
-                onClick={handleCopy}
-                className="text-black hover:scale-110 transition"
-            >
-                <SiTiktok />
-            </button>
-
-            </div>
-
-        {/* Copy Link */}
-        <div className="bg-[#f7f3ee] border border-[#e8dfd3] rounded-xl p-4 mb-4">
-          <p className="text-sm text-[#7a7268] mb-1">Event Link</p>
-          <p className="text-[#1a1a18] text-sm break-all">{shareLink}</p>
+        <div className="flex items-center gap-4 mb-6 text-2xl">
+          <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareLink}`} target="_blank" rel="noopener noreferrer">
+            <FaFacebook className="text-[#1877f2] hover:scale-110 transition" />
+          </a>
+          <a href={`https://twitter.com/intent/tweet?url=${shareLink}`} target="_blank" rel="noopener noreferrer">
+            <FaTwitter className="text-[#1da1f2] hover:scale-110 transition" />
+          </a>
+          <a href={`https://wa.me/?text=${shareLink}`} target="_blank" rel="noopener noreferrer">
+            <FaWhatsapp className="text-[#25d366] hover:scale-110 transition" />
+          </a>
+          <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareLink}`} target="_blank" rel="noopener noreferrer">
+            <FaLinkedin className="text-[#0a66c2] hover:scale-110 transition" />
+          </a>
+          <button onClick={handleCopy} className="text-[#e1306c] hover:scale-110 transition" title={copied ? "Copied!" : "Copy link for Instagram"}>
+            <FaInstagram />
+          </button>
+          <button onClick={handleCopy} className="text-black hover:scale-110 transition" title={copied ? "Copied!" : "Copy link for TikTok"}>
+            <SiTiktok />
+          </button>
         </div>
 
-        <button
-          onClick={handleCopy}
-          className="w-full bg-[#2d4a3e] hover:bg-[#3d6455] text-white font-semibold text-sm py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#2d4a3e]/20"
-        >
-          {copied ? "Copied!" : "Copy Link"}
-        </button>
+        {/* Share link — reusable component replaces the old div + button */}
+        <ShareLink eventId={eventId} label="Event Link" />
+
       </div>
     </div>
   );

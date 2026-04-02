@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import Event from "./pages/Event";import EventPage from "./pages/EventPage";
+import EventConfirmation from "./pages/EventConfirmation";
+import EventPage from "./pages/EventPage";
 
 function App() {
   return (
@@ -15,8 +16,8 @@ function App() {
       />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/event/:eventId" element={<Event />} />
         <Route path="/event/:id" element={<EventPage />} />
+        <Route path="/event/:eventId/confirmed" element={<EventConfirmation />} />
       </Routes>
     </Router>
   );

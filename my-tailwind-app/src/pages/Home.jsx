@@ -13,21 +13,24 @@ export default function Home() {
   };
 
   const handleSubmit = () => {
-     let newErrors = {};
+    let newErrors = {};
 
-  if (!form.name.trim()) {
-    newErrors.name = "Event name is required.";
-  }
+    if (!form.name.trim()) {
+      newErrors.name = "Event name is required.";
+    }
 
-  if (form.description.length > 100) {
-    newErrors.description = "Description must be under 100 characters.";
-  }
+    if (form.description.length > 100) {
+      newErrors.description = "Description must be under 100 characters.";
+    }
 
-  if (Object.keys(newErrors).length > 0) {
-    setErrors(newErrors);
-    return;
-  }
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
     const eventId = Math.random().toString(36).slice(2, 8);
+
+    // Go to the event page first — confirmation comes after saving availability
     navigate(`/event/${eventId}`, { state: { ...form, eventId } });
   };
 
@@ -80,10 +83,10 @@ export default function Home() {
             onChange={(e) => handleChange("description", e.target.value)}
             rows={4}
             className={`w-full px-4 py-3 rounded-xl border text-sm text-[#1a1a18] bg-white placeholder-[#b5a99a] outline-none transition-all duration-200 focus:ring-2 focus:ring-[#2d4a3e]/30 focus:border-[#2d4a3e] resize-none ${
-            errors.description ? "border-red-300 bg-red-50" : "border-[#e8dfd3]"
+              errors.description ? "border-red-300 bg-red-50" : "border-[#e8dfd3]"
             }`}
           />
-          {errors.description &&(
+          {errors.description && (
             <p className="text-red-400 text-xs mt-1.5">{errors.description}</p>
           )}
         </div>
