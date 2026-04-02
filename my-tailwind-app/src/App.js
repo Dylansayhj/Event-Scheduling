@@ -10,7 +10,7 @@ function App() {
           { label: "Events", href: "/events" },
         ]}
         ctaLabel="+ New Event"
-        ctaHref="/"
+        ctaHref="/new"
       />
       <Routes>
         <Route path="/" element={<Home />} />

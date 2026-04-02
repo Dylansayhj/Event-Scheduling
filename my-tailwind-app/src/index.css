@@ -34,3 +34,12 @@ code {
 .btn {
   @apply bg-sky-500 hover:bg-sky-700 text-white px-4 py-2 rounded;
 }
+/*fade animation for popup*/
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s ease-out;
+}

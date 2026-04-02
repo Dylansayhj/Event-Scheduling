@@ -4,6 +4,7 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaWhatsapp } from "reac
 import { SiTiktok } from "react-icons/si";
 export default function Event() {
   const { eventId } = useParams();
+  
   const location = useLocation();
   const { name, description } = location.state || {};
 
@@ -14,6 +15,26 @@ export default function Event() {
     navigator.clipboard.writeText(shareLink);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
+
+  };
+    // just for Instagram and TikTok
+  const handleCopyAndOpen = (url) => {
+  navigator.clipboard.writeText(shareLink);
+  setCopied(true);
+
+  setTimeout(() => {
+      setCopied(false);
+      window.open(url, "_blank");
+    }, 1000);
+    };
+  const handleShareAndOpen = (url) => {
+    navigator.clipboard.writeText(shareLink);
+    setCopied(true);
+
+    setTimeout(() => {
+      setCopied(false);
+      window.open(url, "_blank");
+    }, 1000);
   };
 
   return (
@@ -26,7 +47,12 @@ export default function Event() {
              is confirmed!
             </h1>
         </div>
-
+         {/* Popup */}
+          {copied && (
+            <div className="mb-6 bg-[#2d4a3e] text-white px-4 py-2 rounded-lg shadow-lg text-sm animate-fadeIn">
+              Link copied! Send it to your friend.
+            </div>
+          )}
       <div className="w-full max-w-md bg-white rounded-2xl border border-[#e8dfd3] shadow-[0_4px_24px_rgba(45,74,62,0.08)] p-8">
         
         {/* Title */}
@@ -44,51 +70,57 @@ export default function Event() {
 
          <div className="flex items-center gap-4 mb-6 text-2xl">
 
-            <a
-                href={`https://www.facebook.com/sharer/sharer.php?u=${shareLink}`}
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <FaFacebook className="text-[#1877f2] hover:scale-110 transition" />
-            </a>
+        <button
+            onClick={() =>
+              handleShareAndOpen(`https://www.facebook.com/sharer/sharer.php?u=${shareLink}`)
+            }
+            className="text-[#1877f2] hover:scale-110 transition"
+              >
+            <FaFacebook />
+        </button>
 
-            <a
-                href={`https://twitter.com/intent/tweet?url=${shareLink}`}
-                target="_blank"
-                rel="noopener noreferrer"
+           <button
+              onClick={() =>
+                handleShareAndOpen(`https://twitter.com/intent/tweet?url=${shareLink}`)
+              }
+              className="text-[#1da1f2] hover:scale-110 transition"
             >
-                <FaTwitter className="text-[#1da1f2] hover:scale-110 transition" />
-            </a>
-
-            <a
-                href={`https://wa.me/?text=${shareLink}`}
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <FaWhatsapp className="text-[#25d366] hover:scale-110 transition" />
-            </a>
-
-            <a
-                href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareLink}`}
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <FaLinkedin className="text-[#0a66c2] hover:scale-110 transition" />
-            </a>
-
-            {/* Instagram & TikTok (copy fallback) */}
-            <button
-                onClick={handleCopy}
-                className="text-[#e1306c] hover:scale-110 transition"
-            >
-                <FaInstagram />
+              <FaTwitter />
             </button>
 
             <button
-                onClick={handleCopy}
+              onClick={() =>
+                handleShareAndOpen(`https://wa.me/?text=${shareLink}`)
+              }
+              className="text-[#25d366] hover:scale-110 transition"
+            >
+              <FaWhatsapp />
+            </button>
+
+           <button
+              onClick={() =>
+                handleShareAndOpen(`https://www.linkedin.com/sharing/share-offsite/?url=${shareLink}`)
+              }
+              className="text-[#0a66c2] hover:scale-110 transition"
+            >
+              <FaLinkedin />
+            </button>
+
+
+            {/* Instagram & TikTok (copy fallback) */}
+            <button
+                onClick={() => handleCopyAndOpen("https://www.instagram.com")}
+                className="text-[#e1306c] hover:scale-110 transition"
+            >
+              <FaInstagram />
+            </button>
+
+
+            <button
+                onClick={() => handleCopyAndOpen("https://www.tiktok.com")}
                 className="text-black hover:scale-110 transition"
             >
-                <SiTiktok />
+              <SiTiktok />
             </button>
 
             </div>
