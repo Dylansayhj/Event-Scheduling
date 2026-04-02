@@ -1,13 +1,11 @@
-import { useLocation, useParams, useNavigate } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useState } from "react";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { SiTiktok } from "react-icons/si";
-import ShareLink from "../components/ShareLink";
-
-export default function EventConfirmation() {
+export default function Event() {
   const { eventId } = useParams();
+  
   const location = useLocation();
-  const navigate = useNavigate();
   const { name, description } = location.state || {};
 
   const shareLink = `${window.location.origin}/event/${eventId}`;
@@ -17,12 +15,10 @@ export default function EventConfirmation() {
     navigator.clipboard.writeText(shareLink);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
-  };
 
-  const handleAddAnother = () => {
-    navigate(`/event/${eventId}`, { state: { name, description } });
   };
- const handleCopyAndOpen = (url) => {
+    // just for Instagram and TikTok
+  const handleCopyAndOpen = (url) => {
   navigator.clipboard.writeText(shareLink);
   setCopied(true);
 
@@ -40,30 +36,26 @@ export default function EventConfirmation() {
       window.open(url, "_blank");
     }, 1000);
   };
+
   return (
     <div className="min-h-screen bg-[#f7f3ee] flex flex-col items-center justify-start px-4 py-16">
-        {/* Popup */}
-        {copied && (
-          <div className="fixed bottom-6 left-1/2 -translate-x-1/2 
-                          bg-[#2d4a3e] text-white px-4 py-2 rounded-lg 
-                          shadow-lg text-sm animate-fadeIn">
-            Link copied! Send it to your friend.
-          </div>
-        )}
-
-
-      {/* Heading */}
-      <div className="text-center mb-10">
-        <h1 className="font-serif text-4xl md:text-5xl font-black text-[#1a1a18] tracking-tight leading-tight mb-3">
-          Your <span className="italic text-[#2d4a3e]">Availability</span>
-          <br />
-          is confirmed!
-        </h1>
-      </div>
-
+         {/* Heading */}
+        <div className="text-center mb-10">
+            <h1 className="font-serif text-4xl md:text-5xl font-black text-[#1a1a18] tracking-tight leading-tight mb-3">
+             Your <span className="italic text-[#2d4a3e]">Availability</span> 
+              <br />
+             is confirmed!
+            </h1>
+        </div>
+         {/* Popup */}
+          {copied && (
+            <div className="mb-6 bg-[#2d4a3e] text-white px-4 py-2 rounded-lg shadow-lg text-sm animate-fadeIn">
+              Link copied! Send it to your friend.
+            </div>
+          )}
       <div className="w-full max-w-md bg-white rounded-2xl border border-[#e8dfd3] shadow-[0_4px_24px_rgba(45,74,62,0.08)] p-8">
-
-        {/* Event info */}
+        
+        {/* Title */}
         <h2 className="text-2xl font-bold text-[#1a1a18] mb-1">
           {name || "Your Event"}
         </h2>
@@ -133,16 +125,18 @@ export default function EventConfirmation() {
 
             </div>
 
-
-        <ShareLink eventId={eventId} label="Event Link" />
+        {/* Copy Link */}
+        <div className="bg-[#f7f3ee] border border-[#e8dfd3] rounded-xl p-4 mb-4">
+          <p className="text-sm text-[#7a7268] mb-1">Event Link</p>
+          <p className="text-[#1a1a18] text-sm break-all">{shareLink}</p>
+        </div>
 
         <button
-          onClick={handleAddAnother}
-          className="w-full mt-4 border border-[#2d4a3e] text-[#2d4a3e] hover:bg-[#2d4a3e] hover:text-white font-semibold text-sm py-3 rounded-xl transition-all duration-200"
+          onClick={handleCopy}
+          className="w-full bg-[#2d4a3e] hover:bg-[#3d6455] text-white font-semibold text-sm py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#2d4a3e]/20"
         >
-          + Add Availability for Another Date
+          {copied ? "Copied!" : "Copy Link"}
         </button>
-
       </div>
     </div>
   );
