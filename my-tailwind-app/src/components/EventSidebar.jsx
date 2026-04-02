@@ -196,11 +196,6 @@ export default function EventSidebar({
           )}
         </div>
       ) : null}
-
-      <div className="mt-auto">
-        <ShareLink eventId={eventId} />
-      </div>
-
     </div>
   );
 }
