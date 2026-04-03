@@ -13,12 +13,6 @@ export default function EventConfirmation() {
   const shareLink = `${window.location.origin}/event/${eventId}`;
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(shareLink);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
-  };
-
   const handleAddAnother = () => {
     navigate(`/event/${eventId}`, { state: { name, description } });
   };
