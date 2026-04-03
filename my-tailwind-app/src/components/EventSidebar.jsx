@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { formatTime } from '../utils/utils';
 import { TIME_SLOTS } from "../utils/constants/time_slots";
-import ShareLink from "./ShareLink";
+//import ShareLink from "./ShareLink";
 
 function buildAllOverlapRanges(allOverlaps, totalUsers) {
   const results = [];
